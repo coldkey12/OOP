@@ -1,0 +1,17 @@
+package practice2;
+
+public class MainPractice {
+    public static void main(String[] args) {
+        StarTriangle small = new StarTriangle(3);
+        System.out.println(small.toString());
+
+        System.out.println();
+
+        Time t = new Time(23, 5, 6);
+        System.out.println(t.getUniversalTime());
+        System.out.println(t.getStandardTime());
+        Time t2 = new Time(4,24,33);
+        t.add(t2);
+        System.out.println(t.getUniversalTime());
+    }
+}
