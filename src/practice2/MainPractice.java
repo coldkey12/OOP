@@ -7,7 +7,7 @@ public class MainPractice {
 
         System.out.println();
 
-        Time t = new Time(23, 5, 6);
+        Time t = new Time(23, 70, 6);
         System.out.println(t.getUniversalTime());
         System.out.println(t.getStandardTime());
         Time t2 = new Time(4,24,33);
