@@ -1,14 +1,11 @@
 package lab3.problem3;
 
-import java.util.Iterator;
-
-public interface MyCollection<E> extends Iterable<E> {
+public interface MyCollection<E> {
+    boolean add(E element);
+    boolean remove(E element);
+    boolean contains(E element);
     int size();
     boolean isEmpty();
-    boolean contains(Object o);
-    boolean add(E element);
-    boolean remove(Object o);
     void clear();
     Object[] toArray();
-    Iterator<E> iterator();
 }

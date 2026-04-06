@@ -10,49 +10,33 @@ public class Manager extends Employee {
 
     public Manager(String name, double salary, Date hireDate, String nin, double bonus) {
         super(name, salary, hireDate, nin);
-        this.team = new Vector<>();
         this.bonus = bonus;
+        this.team = new Vector<>();
     }
 
     public Manager(String name, double salary, double bonus) {
         super(name, salary);
-        this.team = new Vector<>();
         this.bonus = bonus;
+        this.team = new Vector<>();
     }
 
-    public Vector<Employee> getTeam() { return team; }
-
     public void addEmployee(Employee e) { team.add(e); }
-
-    public void removeEmployee(Employee e) { team.remove(e); }
-
+    public Vector<Employee> getTeam() { return team; }
     public double getBonus() { return bonus; }
     public void setBonus(double bonus) { this.bonus = bonus; }
 
     @Override
     public int compareTo(Employee other) {
-        int salaryCompare = super.compareTo(other);
-        if (salaryCompare != 0) return salaryCompare;
-        if (other instanceof Manager) {
-            return Double.compare(this.bonus, ((Manager) other).bonus);
+        int result = super.compareTo(other);
+        if (result == 0 && other instanceof Manager) {
+            result = Double.compare(this.bonus, ((Manager) other).bonus);
         }
-        return 0;
-    }
-
-    @Override
-    public Manager clone() {
-        Manager copy = (Manager) super.clone();
-        copy.team = new Vector<>();
-        for (Employee e : this.team) {
-            copy.team.add(e.clone());
-        }
-        return copy;
+        return result;
     }
 
     @Override
     public String toString() {
-        return "Manager{name='" + getName() + "', salary=" + getSalary() +
-               ", bonus=" + bonus + ", teamSize=" + team.size() + "}";
+        return "Manager: " + getName() + ", Salary: " + getSalary() + ", Bonus: " + bonus + ", Team size: " + team.size();
     }
 
     @Override
@@ -66,5 +50,12 @@ public class Manager extends Employee {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), bonus);
+    }
+
+    @Override
+    public Manager clone() {
+        Manager copy = (Manager) super.clone();
+        copy.team = new Vector<>(this.team);
+        return copy;
     }
 }

@@ -8,12 +8,6 @@ public class Time implements Comparable<Time> {
     public Time() {}
 
     public Time(int hours, int minutes, int seconds) {
-        if (hours < 0 || hours > 23)
-            throw new IllegalArgumentException("Hours must be between 0 and 23");
-        if (minutes < 0 || minutes > 59)
-            throw new IllegalArgumentException("Minutes must be between 0 and 59");
-        if (seconds < 0 || seconds > 59)
-            throw new IllegalArgumentException("Seconds must be between 0 and 59");
         this.hours = hours;
         this.minutes = minutes;
         this.seconds = seconds;

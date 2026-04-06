@@ -17,19 +17,13 @@ public class Employee extends Person implements Comparable<Employee>, Cloneable 
     }
 
     public Employee(String name, double salary) {
-        this(name, salary, new Date(), "N/A");
-    }
-
-    public Employee(String name) {
-        this(name, 0, new Date(), "N/A");
+        this(name, salary, new Date(), "");
     }
 
     public double getSalary() { return salary; }
     public void setSalary(double salary) { this.salary = salary; }
-
     public Date getHireDate() { return hireDate; }
     public void setHireDate(Date hireDate) { this.hireDate = hireDate; }
-
     public String getNationalInsuranceNumber() { return nationalInsuranceNumber; }
     public void setNationalInsuranceNumber(String nin) { this.nationalInsuranceNumber = nin; }
 
@@ -39,44 +33,36 @@ public class Employee extends Person implements Comparable<Employee>, Cloneable 
     }
 
     @Override
-    public Employee clone() {
-        try {
-            Employee copy = (Employee) super.clone();
-            copy.hireDate = (Date) this.hireDate.clone(); // deep copy of mutable Date
-            return copy;
-        } catch (CloneNotSupportedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
     public String toString() {
-        return "Employee{name='" + getName() + "', salary=" + salary +
-               ", hireDate=" + hireDate + ", NIN='" + nationalInsuranceNumber + "'}";
+        return "Employee: " + getName() + ", Salary: " + salary + ", Hired: " + hireDate + ", NIN: " + nationalInsuranceNumber;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         Employee e = (Employee) o;
-        return Double.compare(e.salary, salary) == 0 &&
-               Objects.equals(getName(), e.getName()) &&
-               Objects.equals(nationalInsuranceNumber, e.nationalInsuranceNumber);
+        return Double.compare(e.salary, salary) == 0 && Objects.equals(nationalInsuranceNumber, e.nationalInsuranceNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), salary, nationalInsuranceNumber);
+        return Objects.hash(super.hashCode(), salary, nationalInsuranceNumber);
     }
 
-    // Comparator by name
-    public static Comparator<Employee> byName() {
-        return Comparator.comparing(Employee::getName);
+    @Override
+    public Employee clone() {
+        try {
+            Employee copy = (Employee) super.clone();
+            copy.hireDate = (Date) this.hireDate.clone();
+            return copy;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    // Comparator by hire date
-    public static Comparator<Employee> byHireDate() {
-        return Comparator.comparing(Employee::getHireDate);
-    }
+    public static Comparator<Employee> nameComparator = Comparator.comparing(Employee::getName);
+
+    public static Comparator<Employee> hireDateComparator = Comparator.comparing(Employee::getHireDate);
 }

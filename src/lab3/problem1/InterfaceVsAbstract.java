@@ -1,5 +1,56 @@
 package lab3.problem1;
 
+// When to use Abstract Class:
+// - When classes share common code (fields, methods)
+// - When you want to provide default behavior
+// Example: Animal is abstract because all animals share name/age fields and common logic
+
+abstract class Vehicle {
+    private String brand;
+
+    public Vehicle(String brand) {
+        this.brand = brand;
+    }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    abstract void move();
+
+    public void stop() {
+        System.out.println(brand + " stopped.");
+    }
+}
+
+class Bicycle extends Vehicle {
+    public Bicycle(String brand) {
+        super(brand);
+    }
+
+    @Override
+    void move() {
+        System.out.println(getBrand() + " is pedaling.");
+    }
+}
+
+class Truck extends Vehicle {
+    public Truck(String brand) {
+        super(brand);
+    }
+
+    @Override
+    void move() {
+        System.out.println(getBrand() + " is driving.");
+    }
+}
+
+// When to use Interface:
+// - When unrelated classes need the same capability
+// - When you want multiple inheritance of type
+// - When you define a contract without implementation
+// Example: Printable can apply to Document, Invoice, Image — unrelated classes
+
 interface Printable {
     void print();
 }
@@ -8,167 +59,51 @@ interface Saveable {
     void save(String path);
 }
 
-class Report implements Printable, Saveable {
-    private String title;
+class Document implements Printable, Saveable {
     private String content;
 
-    public Report(String title, String content) {
-        this.title = title;
+    public Document(String content) {
         this.content = content;
     }
 
     @Override
     public void print() {
-        System.out.println("Printing report: " + title);
-        System.out.println(content);
+        System.out.println("Printing document: " + content);
     }
 
     @Override
     public void save(String path) {
-        System.out.println("Saving report '" + title + "' to " + path);
+        System.out.println("Saving document to " + path);
     }
 }
 
-class Image implements Printable, Saveable {
+class Image implements Printable {
     private String filename;
-    private int width, height;
 
-    public Image(String filename, int width, int height) {
+    public Image(String filename) {
         this.filename = filename;
-        this.width = width;
-        this.height = height;
     }
 
     @Override
     public void print() {
-        System.out.println("Printing image: " + filename + " (" + width + "x" + height + ")");
-    }
-
-    @Override
-    public void save(String path) {
-        System.out.println("Saving image '" + filename + "' to " + path);
+        System.out.println("Printing image: " + filename);
     }
 }
-
-
-abstract class Notification {
-    protected String recipient;
-    protected String message;
-    protected boolean sent;
-
-    public Notification(String recipient, String message) {
-        this.recipient = recipient;
-        this.message = message;
-        this.sent = false;
-    }
-
-    public void markAsSent() {
-        this.sent = true;
-        System.out.println("Notification to " + recipient + " marked as sent.");
-    }
-
-    public boolean isSent() {
-        return sent;
-    }
-
-    public abstract void send();
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + " to " + recipient + " [" + (sent ? "sent" : "pending") + "]";
-    }
-}
-
-class EmailNotification extends Notification {
-    private String subject;
-
-    public EmailNotification(String recipient, String subject, String message) {
-        super(recipient, message);
-        this.subject = subject;
-    }
-
-    @Override
-    public void send() {
-        System.out.println("Sending email to " + recipient + ": [" + subject + "] " + message);
-        markAsSent();
-    }
-}
-
-class SMSNotification extends Notification {
-    private String phoneNumber;
-
-    public SMSNotification(String recipient, String phoneNumber, String message) {
-        super(recipient, message);
-        this.phoneNumber = phoneNumber;
-    }
-
-    @Override
-    public void send() {
-        System.out.println("Sending SMS to " + phoneNumber + " (" + recipient + "): " + message);
-        markAsSent();
-    }
-}
-
-class PushNotification extends Notification {
-    private String deviceId;
-
-    public PushNotification(String recipient, String deviceId, String message) {
-        super(recipient, message);
-        this.deviceId = deviceId;
-    }
-
-    @Override
-    public void send() {
-        System.out.println("Pushing to device " + deviceId + " (" + recipient + "): " + message);
-        markAsSent();
-    }
-}
-
-
-interface Loggable {
-    void log();
-}
-
-class LoggableEmailNotification extends EmailNotification implements Loggable {
-    public LoggableEmailNotification(String recipient, String subject, String message) {
-        super(recipient, subject, message);
-    }
-
-    @Override
-    public void log() {
-        System.out.println("[LOG] " + this);
-    }
-}
-
 
 public class InterfaceVsAbstract {
     public static void main(String[] args) {
-        System.out.println("=== Interface Example: Unrelated classes sharing capabilities ===");
-        Printable[] printables = {
-            new Report("Q1 Sales", "Revenue: $1M"),
-            new Image("logo.png", 1920, 1080)
-        };
-        for (Printable p : printables) {
-            p.print();
-        }
+        // Abstract class example
+        Vehicle bike = new Bicycle("Giant");
+        Vehicle truck = new Truck("Volvo");
+        bike.move();
+        truck.move();
+        bike.stop();
 
-        System.out.println("\n=== Abstract Class Example: Related classes sharing state and behavior ===");
-        Notification[] notifications = {
-            new EmailNotification("alice@mail.com", "Meeting", "Meeting at 3 PM"),
-            new SMSNotification("Bob", "+1234567890", "Your order shipped"),
-            new PushNotification("Charlie", "device-xyz", "New message received")
-        };
-        for (Notification n : notifications) {
-            n.send();
-            System.out.println(n);
-        }
-
-        System.out.println("\n=== Combined: Abstract class + Interface ===");
-        LoggableEmailNotification logEmail = new LoggableEmailNotification(
-            "dave@mail.com", "Alert", "Server is down!"
-        );
-        logEmail.send();
-        logEmail.log();
-
+        // Interface example
+        Document doc = new Document("Hello World");
+        Image img = new Image("photo.png");
+        doc.print();
+        doc.save("/docs/file.txt");
+        img.print();
     }
 }
