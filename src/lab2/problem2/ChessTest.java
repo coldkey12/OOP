@@ -4,7 +4,6 @@ public class ChessTest {
     public static void main(String[] args) {
         System.out.println("=== Chess Pieces - Legal Move Tests ===\n");
 
-        // Rook tests
         Rook rook = new Rook(new Position(3, 3));
         System.out.println("--- " + rook + " ---");
         System.out.println("Move to (3,7) horizontal: " + rook.isLegalMove(new Position(3, 7))); // true
@@ -13,7 +12,6 @@ public class ChessTest {
         System.out.println("Move to (3,3) same pos:   " + rook.isLegalMove(new Position(3, 3))); // false
         System.out.println();
 
-        // King tests
         King king = new King(new Position(4, 4));
         System.out.println("--- " + king + " ---");
         System.out.println("Move to (5,5) diagonal 1: " + king.isLegalMove(new Position(5, 5))); // true
@@ -23,7 +21,6 @@ public class ChessTest {
         System.out.println("Move to (4,4) same pos:   " + king.isLegalMove(new Position(4, 4))); // false
         System.out.println();
 
-        // Queen tests
         Queen queen = new Queen(new Position(3, 3));
         System.out.println("--- " + queen + " ---");
         System.out.println("Move to (3,7) horizontal: " + queen.isLegalMove(new Position(3, 7))); // true
@@ -32,7 +29,6 @@ public class ChessTest {
         System.out.println("Move to (5,6) invalid:    " + queen.isLegalMove(new Position(5, 6))); // false
         System.out.println();
 
-        // Bishop tests
         Bishop bishop = new Bishop(new Position(2, 5));
         System.out.println("--- " + bishop + " ---");
         System.out.println("Move to (5,2) diagonal:   " + bishop.isLegalMove(new Position(5, 2))); // true
@@ -41,7 +37,6 @@ public class ChessTest {
         System.out.println("Move to (4,5) vertical:   " + bishop.isLegalMove(new Position(4, 5))); // false
         System.out.println();
 
-        // Knight tests
         Knight knight = new Knight(new Position(4, 4));
         System.out.println("--- " + knight + " ---");
         System.out.println("Move to (6,5) L-shape:    " + knight.isLegalMove(new Position(6, 5))); // true
@@ -51,7 +46,6 @@ public class ChessTest {
         System.out.println("Move to (4,6) horizontal: " + knight.isLegalMove(new Position(4, 6))); // false
         System.out.println();
 
-        // Pawn tests (white)
         Pawn whitePawn = new Pawn(new Position(1, 3), true);
         System.out.println("--- " + whitePawn + " ---");
         System.out.println("Move to (2,3) forward 1:  " + whitePawn.isLegalMove(new Position(2, 3))); // true
@@ -61,7 +55,6 @@ public class ChessTest {
         System.out.println("Move to (1,4) sideways:   " + whitePawn.isLegalMove(new Position(1, 4))); // false
         System.out.println();
 
-        // Pawn tests (black)
         Pawn blackPawn = new Pawn(new Position(6, 4), false);
         System.out.println("--- " + blackPawn + " ---");
         System.out.println("Move to (5,4) forward 1:  " + blackPawn.isLegalMove(new Position(5, 4))); // true
@@ -70,7 +63,6 @@ public class ChessTest {
         System.out.println("Move to (7,4) backward:   " + blackPawn.isLegalMove(new Position(7, 4))); // false
         System.out.println();
 
-        // Test moving a piece and re-checking
         System.out.println("--- Move white pawn and re-test ---");
         whitePawn.setPosition(new Position(3, 3));
         System.out.println("After move: " + whitePawn);

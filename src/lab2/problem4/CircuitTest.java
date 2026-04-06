@@ -3,20 +3,17 @@ package lab2.problem4;
 public class CircuitTest {
 
     public static void main(String[] args) {
-        // Build individual resistors
         Circuit a = new Resistor(3.0);
         Circuit b = new Resistor(3.0);
         Circuit c = new Resistor(6.0);
         Circuit d = new Resistor(3.0);
         Circuit e = new Resistor(2.0);
 
-        // Combine into sub-circuits
-        Circuit f = new Series(a, b);       // a and b in series: 3 + 3 = 6 ohms
-        Circuit g = new Parallel(c, d);     // c and d in parallel: (6*3)/(6+3) = 2 ohms
-        Circuit h = new Series(g, e);       // g and e in series: 2 + 2 = 4 ohms
-        Circuit circuit = new Parallel(h, f); // h and f in parallel: (4*6)/(4+6) = 2.4 ohms
+        Circuit f = new Series(a, b);       // 3 + 3 = 6 ohms
+        Circuit g = new Parallel(c, d);     // (6*3)/(6+3) = 2 ohms
+        Circuit h = new Series(g, e);       // 2 + 2 = 4 ohms
+        Circuit circuit = new Parallel(h, f); // (4*6)/(4+6) = 2.4 ohms
 
-        // Calculate and display total resistance
         double R = circuit.getResistance();
         System.out.println("=== Electrical Circuit System ===");
         System.out.println();
@@ -24,7 +21,6 @@ public class CircuitTest {
         System.out.println();
         System.out.println("Total resistance: " + R + " ohms");
 
-        // Apply a potential difference of 12V
         double V = 12.0;
         circuit.applyPotentialDiff(V);
 
@@ -33,7 +29,6 @@ public class CircuitTest {
         System.out.println("Total current: " + circuit.getCurrent() + " A");
         System.out.println("Total power: " + circuit.getPower() + " W");
 
-        // Display potential differences across individual resistors
         System.out.println();
         System.out.println("=== Potential Differences Across Components ===");
         System.out.println("Resistor a (3 ohms): V = " + a.getPotentialDiff() + " V, I = " + a.getCurrent() + " A");

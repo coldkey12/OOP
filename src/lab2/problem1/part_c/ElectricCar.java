@@ -3,7 +3,7 @@ package lab2.problem1.part_c;
 import java.util.Objects;
 
 public class ElectricCar extends Vehicle {
-    private double batteryCapacity; // in kWh
+    private double batteryCapacity;
 
     public ElectricCar(String make, int year, double batteryCapacity) {
         super(make, year);

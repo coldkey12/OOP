@@ -20,7 +20,6 @@ public class ShapeTest {
         System.out.printf("  Volume: %.2f%n", cube.volume());
         System.out.printf("  Surface Area: %.2f%n%n", cube.surfaceArea());
 
-        // Demonstrate polymorphism using a Shape3D array
         System.out.println("=== Polymorphism Demo (Shape3D array) ===");
         Shape3D[] shapes = { cylinder, sphere, cube };
 
@@ -28,7 +27,6 @@ public class ShapeTest {
             System.out.println(shape);
         }
 
-        // Demonstrate setter usage
         System.out.println("\n=== After Modifying Shapes ===");
         cylinder.setRadius(8.0);
         cylinder.setHeight(15.0);

@@ -18,7 +18,7 @@ public class PhDStudent extends Student {
 
     @Override
     public void assignPet(Animal pet) {
-        if (pet instanceof Dog) {
+        if (pet instanceof Dog || pet instanceof Cat) {
             System.out.println("Error: PhD students cannot have dogs as pets!");
             return;
         }
